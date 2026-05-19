@@ -188,7 +188,7 @@ SENTI-MATRIX/
 ### 2. Clone the Repository
 
 ```bash
-git clone https://github.com/usmanakmal1471/SENTI-MATRIX.git
+git clone https://github.com/ELTE-DSED/SENTI-MATRIX.git
 cd SENTI-MATRIX
 ```
 
