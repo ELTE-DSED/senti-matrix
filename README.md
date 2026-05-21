@@ -1,5 +1,9 @@
 # SentiMatrix: Parameter-Efficient Fine-Tuning of Encoder-Based Transformers for Multidimensional Sentiment Analysis
 
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-orange.svg)](https://pytorch.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 *Python · PyTorch · Transformers · HuggingFace · LoRA · AdaLoRA*
 
 > **This work is currently under review at the** ***Machine Learning*** **journal (Springer).**
@@ -24,6 +28,7 @@ SENTI-MATRIX is a parameter-efficient fine-tuning framework for transformer-base
 - [Evaluation Metrics](#evaluation-metrics)
 - [Citation](#citation)
 - [Acknowledgements](#acknowledgements)
+- [License](#license)
 - [Contact](#contact)
 
 ---
@@ -347,6 +352,14 @@ This repository accompanies the following article, currently under review:
   note      = {Under review}
 }
 ```
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+Copyright (c) 2026 Md. Easin Arafat, Muhammad Usman Akmal, Ali S. Abosinnee, Tamás Orosz
 
 ---
 
