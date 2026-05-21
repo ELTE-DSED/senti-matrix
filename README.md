@@ -205,7 +205,7 @@ Each notebook in `Code/` is self-contained and covers one task–dataset combina
 
 ```bash
 git clone https://github.com/ELTE-DSED/senti-matrix.git
-cd SENTI-MATRIX
+cd senti-matrix
 ```
 
 ### Install Dependencies
