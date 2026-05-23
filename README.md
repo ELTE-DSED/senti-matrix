@@ -8,12 +8,6 @@
 
 > **This work is currently under review at the** ***Machine Learning*** **journal (Springer).**
 
----
-
-## Abstract
-
-Transformer-based architectures have established state-of-the-art benchmarks across Natural Language Processing (NLP) tasks; however, the computational overhead of full fine-tuning remains a significant barrier to scalable deployment. This paper presents **SentiMatrix**, a systematic evaluation of Low-Rank Adaptation (LoRA)-based Parameter-Efficient Fine-Tuning (PEFT) against full fine-tuning across four sentiment analysis paradigms: Intent-based (binary and 3-class), Aspect-based (3-class), Fine-grained (5-class), and Emotion detection (6-class), spanning seven benchmark datasets under a consistent three-stage protocol: zero-shot inference with task-specific pretrained Transformers, Full Fine-Tuning (FFT) as a performance upper bound, and LoRA-based adaptation to quantify the efficiency–performance trade-off. Adaptive Low-Rank Adaptation (AdaLoRA) is benchmarked as a direct comparator; LoRA outperforms AdaLoRA on most benchmarks across accuracy, training efficiency, and memory, while AdaLoRA demonstrates complementary strengths on precision-sensitive tasks such as emotion detection. LoRA-adapted models match or surpass FFT while reducing trainable parameters by up to **99.7%**, peak GPU memory by **15–30%**, and training time by up to **70%**, with gains consistent across architectures from 66M to 184M parameters. SentiMatrix sets new state-of-the-art on Twitter 3-class (**85.13%**) and Yelp 5-class (**64.58%**), and approaches state-of-the-art on CARER emotion detection (**93.40%**), without task-specific modifications.
-
 **Keywords:** Sentiment Analysis · Transformer Models · Parameter-Efficient Fine-Tuning · Low-Rank Adaptation · Multidimensional Evaluation
 
 ---
@@ -21,7 +15,6 @@ Transformer-based architectures have established state-of-the-art benchmarks acr
 ## Table of Contents
 
 - [Overview](#overview)
-- [Key Contributions](#key-contributions)
 - [Datasets](#datasets)
 - [Pretrained Models](#pretrained-models)
 - [Key Results](#key-results)
@@ -56,16 +49,6 @@ The three adaptation strategies evaluated are:
 2. **Full Fine-Tuning (FFT)** — All model parameters updated; serves as the performance upper bound.
 3. **LoRA (Proposed)** — Low-rank adapter matrices injected into attention layers; only adapter weights trained.
 4. **AdaLoRA (Comparator)** — SVD-based importance-aware rank allocation; benchmarked against LoRA.
-
----
-
-## Key Contributions
-
-- **First systematic cross-paradigm evaluation** across four sentiment analysis paradigms — intent-based (binary and ternary), aspect-based, fine-grained (5-class), and emotion detection (6-class) — using seven benchmark datasets under a consistent experimental protocol. LoRA-adapted models set new state-of-the-art on Twitter 3-class (**85.13%**) and Yelp 5-class (**64.58%**), and approach state-of-the-art on CARER emotion detection (**93.40%**), without task-specific architectural modifications.
-
-- **Quantified efficiency–performance trade-offs** among zero-shot, FFT, AdaLoRA, and LoRA across all tasks. LoRA reduces trainable parameters by up to **99.7%** and training time by up to **70%** while matching or surpassing FFT on five out of seven benchmarks and consistently outperforming AdaLoRA across accuracy, peak GPU memory (15–30% reduction), and wall-clock efficiency.
-
-- **Ablation study** over model capacity, label granularity, and linguistic domain confirms that LoRA's fixed low-rank constraint acts as an effective regularizer under domain shift and high label granularity, with FFT retaining an advantage only on long-document tasks (IMDb). Label aggregation from 5-class to 3-class yields approximately **17% accuracy improvement** at no additional computational cost.
 
 ---
 
@@ -111,102 +94,104 @@ Model selection follows architectural alignment with task-specific characteristi
 
 ## Key Results
 
-All tables follow a consistent four-row structure per dataset: *Zero-Shot Baseline*, *Full Fine-Tuning (FFT)*, *LoRA (Ours)*, and *AdaLoRA (Comparator)*. Best results per dataset are **bold**.
+Tables report *Pretrained* (zero-shot), *Fine-Tuned* (FFT), ***SentiMatrix* (Ours / LoRA)**, and *AdaLoRA* (comparator). Best result per dataset in **bold**.
+
+*Pretrained = zero-shot | Fine-Tuned = full parameter update | SentiMatrix = LoRA adapter (proposed) | AdaLoRA = adaptive low-rank adapter*
 
 ---
 
-### Intent-Based Sentiment Analysis — 2-Class
+### Intent-Based Sentiment Analysis (2-Class)
 
-| Dataset | Strategy | Model | Accuracy | F1-Score | Parameters | GPU Memory |
-|:--------|:---------|:------|:--------:|:--------:|:----------:|:----------:|
-| SST-2 | Zero-Shot | DistilBERT | 98.13% | 98.20% | — | — |
-| | FFT | DistilBERT | 89.09% | 89.51% | 66M | 2.0 GB |
-| | LoRA | DistilBERT | 89.40% | 89.84% | 758K | 1.0 GB |
-| | AdaLoRA | DistilBERT | 88.77% | 88.89% | 924K | 1.2 GB |
-| SST-2 | Zero-Shot | RoBERTa | 97.51% | 97.60% | — | — |
-| | FFT | RoBERTa | 89.81% | 90.65% | 124M | 3.8 GB |
-| | **LoRA** | **RoBERTa** | **92.00%** | **92.21%** | 1.2M | 1.2 GB |
-| | AdaLoRA | RoBERTa | 92.72% | 92.90% | 1.8M | 1.2 GB |
-| IMDb | Zero-Shot | BERT | **95.62%** | **95.53%** | — | — |
-| | FFT | BERT | 94.64% | 94.59% | 109M | 2.7 GB |
-| | LoRA | BERT | 92.58% | 92.52% | 38K | 1.8 GB |
-| | AdaLoRA | BERT | 91.38% | 91.41% | 444K | 1.2 GB |
-
----
-
-### Intent-Based Sentiment Analysis — 3-Class
-
-| Dataset | Strategy | Model | Accuracy | F1-Score | Parameters | GPU Memory |
-|:--------|:---------|:------|:--------:|:--------:|:----------:|:----------:|
-| Twitter | Zero-Shot | RoBERTa | 64.96% | 62.88% | — | — |
-| | FFT | RoBERTa | 81.39% | 81.12% | 125M | 2.9 GB |
-| | **LoRA** *(SotA)* | **BERT** | **85.13%** | **84.93%** | 3.3M | 2.3 GB |
-| | AdaLoRA | RoBERTa | 75.58% | 75.41% | 1.0M | 1.1 GB |
+| Dataset | Model | Accuracy | F1-Score | Parameters | GPU Memory |
+|:--------|:------|:--------:|:--------:|:----------:|:----------:|
+| SST-2 | Pretrained DistilBERT | **98.13%** | **98.20%** | — | — |
+| | Fine-Tuned DistilBERT | 89.09% | 89.51% | 66M | 2.0 GB |
+| | **SentiMatrix** DistilBERT | 89.40% | 89.84% | 758K | 1.0 GB |
+| | AdaLoRA DistilBERT | 88.77% | 88.89% | 924K | 1.2 GB |
+| SST-2 | Pretrained RoBERTa | 97.51% | 97.60% | — | — |
+| | Fine-Tuned RoBERTa | 89.81% | 90.65% | 124M | 3.8 GB |
+| | **SentiMatrix** RoBERTa | **92.00%** | **92.21%** | 1.2M | 1.2 GB |
+| | AdaLoRA RoBERTa | 92.72% | 92.90% | 1.8M | 1.2 GB |
+| IMDb | Pretrained BERT | **95.62%** | **95.53%** | — | — |
+| | Fine-Tuned BERT | 94.64% | 94.59% | 109M | 2.7 GB |
+| | **SentiMatrix** BERT | 92.58% | 92.52% | 38K | 1.8 GB |
+| | AdaLoRA BERT | 91.38% | 91.41% | 444K | 1.2 GB |
 
 ---
 
-### Aspect-Based Sentiment Analysis — 3-Class
+### Intent-Based Sentiment Analysis (3-Class)
 
-| Domain | Strategy | Model | Accuracy | F1-Score | Parameters | GPU Memory |
-|:-------|:---------|:------|:--------:|:--------:|:----------:|:----------:|
-| Combined (Laptop + Restaurant) | Zero-Shot | DeBERTa-v3 | 75.84% | 71.84% | — | — |
-| | FFT | DeBERTa-v3 | 78.04% | 66.74% | 184M | 3.5 GB |
-| | **LoRA** | **DeBERTa-v3** | **79.73%** | **73.75%** | 813K | 2.5 GB |
-| | AdaLoRA | DeBERTa-v3 | 76.35% | 66.72% | 1.2M | 1.7 GB |
-| Laptop | Zero-Shot | DeBERTa-v3 | **81.90%** | **80.71%** | — | — |
-| | FFT | DeBERTa-v3 | 80.17% | 78.13% | 184M | 4.2 GB |
-| | LoRA | DeBERTa-v3 | 78.02% | 69.84% | 813K | 2.5 GB |
-| Restaurant | Zero-Shot | DeBERTa-v3 | 73.41% | 68.35% | — | — |
-| | FFT | DeBERTa-v3 | 80.06% | 71.14% | 184M | 4.2 GB |
-| | **LoRA** | **DeBERTa-v3** | **79.02%** | **68.28%** | 813K | 2.4 GB |
+| Dataset | Model | Accuracy | F1-Score | Parameters | GPU Memory |
+|:--------|:------|:--------:|:--------:|:----------:|:----------:|
+| Twitter | Pretrained RoBERTa | 64.96% | 62.88% | — | — |
+| | Fine-Tuned RoBERTa | 81.39% | 81.12% | 125M | 2.9 GB |
+| | **SentiMatrix** BERT *(State-of-the-Art)* | **85.13%** | **84.93%** | 3.3M | 2.3 GB |
+| | AdaLoRA RoBERTa | 75.58% | 75.41% | 1.0M | 1.1 GB |
+
+---
+
+### Aspect-Based Sentiment Analysis (3-Class)
+
+| Dataset | Model | Accuracy | F1-Score | Parameters | GPU Memory |
+|:--------|:------|:--------:|:--------:|:----------:|:----------:|
+| Combined (Laptop + Restaurant) | Pretrained DeBERTa | 75.84% | 71.84% | — | — |
+| | Fine-Tuned DeBERTa | 78.04% | 66.74% | 184M | 3.5 GB |
+| | **SentiMatrix** DeBERTa | **79.73%** | **73.75%** | 813K | 2.5 GB |
+| | AdaLoRA DeBERTa | 76.35% | 66.72% | 1.2M | 1.7 GB |
+| Laptop | Pretrained DeBERTa | **81.90%** | **80.71%** | — | — |
+| | Fine-Tuned DeBERTa | 80.17% | 78.13% | 184M | 4.2 GB |
+| | **SentiMatrix** DeBERTa | 78.02% | 69.84% | 813K | 2.5 GB |
+| Restaurant | Pretrained DeBERTa | 73.41% | 68.35% | — | — |
+| | Fine-Tuned DeBERTa | 80.06% | 71.14% | 184M | 4.2 GB |
+| | **SentiMatrix** DeBERTa | **79.02%** | **68.28%** | 813K | 2.4 GB |
 
 > AdaLoRA results reported on the combined Laptop + Restaurant domain only.
 
 ---
 
-### Fine-Grained Sentiment Analysis — 5-Class and 3-Class
+### Fine-Grained Sentiment Analysis (5-Class / 3-Class)
 
-| Dataset | Strategy | Model | Accuracy | F1-Score | Parameters | GPU Memory |
-|:--------|:---------|:------|:--------:|:--------:|:----------:|:----------:|
-| E-Commerce (5-class) | Zero-Shot | mBERT | 56.87% | 47.82% | — | — |
-| | FFT | mBERT | 66.27% | 50.44% | 167M | 3.2 GB |
-| | **LoRA** | **mBERT** | **67.73%** | **50.31%** | 298K | 1.6 GB |
-| | AdaLoRA | mBERT | 65.30% | 42.01% | 446K | 1.4 GB |
-| E-Commerce (3-class) | Zero-Shot | RoBERTa | 79.12% | 53.51% | — | — |
-| | FFT | RoBERTa | 83.50% | 66.89% | 124M | 2.9 GB |
-| | **LoRA** | **RoBERTa** | **84.96%** | **66.47%** | 889K | 1.7 GB |
-| | AdaLoRA | RoBERTa | 84.87% | 66.53% | 1.3M | 3.3 GB |
-| Yelp (5-class) | Zero-Shot | mBERT | 55.85% | 55.46% | — | — |
-| | FFT | mBERT | 61.13% | 60.44% | 16.7M | 3.7 GB |
-| | **LoRA** *(SotA)* | **mBERT** | **64.58%** | **64.09%** | 1.3M | 3.5 GB |
-| | AdaLoRA | mBERT | 47.53% | 47.75% | 446K | 1.4 GB |
-| Yelp (3-class) | Zero-Shot | RoBERTa | 68.93% | 58.05% | — | — |
-| | FFT | RoBERTa | 82.01% | 77.54% | 124M | 4.2 GB |
-| | **LoRA** | **RoBERTa** | **83.87%** | **79.23%** | 740K | 4.9 GB |
-| | AdaLoRA | RoBERTa | 71.66% | 68.48% | 1.3M | 3.3 GB |
+| Dataset | Model | Accuracy | F1-Score | Parameters | GPU Memory |
+|:--------|:------|:--------:|:--------:|:----------:|:----------:|
+| E-Commerce (5-Class) | Pretrained BERT | 56.87% | 47.82% | — | — |
+| | Fine-Tuned BERT | 66.27% | 50.44% | 167M | 3.2 GB |
+| | **SentiMatrix** BERT | **67.73%** | **50.31%** | 298K | 1.6 GB |
+| | AdaLoRA mBERT | 65.30% | 42.01% | 446K | 1.4 GB |
+| E-Commerce (3-Class) | Pretrained RoBERTa | 79.12% | 53.51% | — | — |
+| | Fine-Tuned RoBERTa | 83.50% | 66.89% | 124M | 2.9 GB |
+| | **SentiMatrix** RoBERTa | **84.96%** | **66.47%** | 889K | 1.7 GB |
+| | AdaLoRA RoBERTa | 84.87% | 66.53% | 1.3M | 3.3 GB |
+| Yelp (5-Class) | Pretrained BERT | 55.85% | 55.46% | — | — |
+| | Fine-Tuned BERT | 61.13% | 60.44% | 16.7M | 3.7 GB |
+| | **SentiMatrix** BERT *(State-of-the-Art)* | **64.58%** | **64.09%** | 1.3M | 3.5 GB |
+| | AdaLoRA mBERT | 47.53% | 47.75% | 446K | 1.4 GB |
+| Yelp (3-Class) | Pretrained RoBERTa | 68.93% | 58.05% | — | — |
+| | Fine-Tuned RoBERTa | 82.01% | 77.54% | 124M | 4.2 GB |
+| | **SentiMatrix** RoBERTa | **83.87%** | **79.23%** | 740K | 4.9 GB |
+| | AdaLoRA RoBERTa | 71.66% | 68.48% | 1.3M | 3.3 GB |
 
 > Collapsing 5-class to 3-class labels yields ~17% accuracy improvement at no additional computational cost.
 
 ---
 
-### Emotion Detection — 6-Class
+### Emotion Detection (6-Class)
 
-| Dataset | Strategy | Model | Accuracy | F1-Score | Parameters | GPU Memory |
-|:--------|:---------|:------|:--------:|:--------:|:----------:|:----------:|
-| CARER | Zero-Shot | DistilBERT | 93.15% | 89.87% | — | — |
-| | **FFT** | **DistilBERT** | **93.59%** | **90.72%** | 66.9M | 2.4 GB |
-| | LoRA *(near-SotA)* | DistilBERT | 93.40% | 90.61% | 668K | 2.1 GB |
-| | AdaLoRA | DistilBERT | 93.36% | 93.46% | 927K | 0.5 GB |
+| Dataset | Model | Accuracy | F1-Score | Parameters | GPU Memory |
+|:--------|:------|:--------:|:--------:|:----------:|:----------:|
+| CARER Emotion | Pretrained DistilBERT | 93.15% | 89.87% | — | — |
+| | Fine-Tuned DistilBERT | **93.59%** | **90.72%** | 66.9M | 2.4 GB |
+| | **SentiMatrix** DistilBERT *(near-SotA)* | 93.40% | 90.61% | 668K | 2.1 GB |
+| | AdaLoRA DistilBERT | 93.36% | 93.46% | 927K | 0.5 GB |
 
 ---
 
 ### Efficiency Summary
 
-| Method | Trainable Params | vs. FFT | Training Time Reduction | GPU Memory Reduction |
-|:-------|:----------------:|:-------:|:-----------------------:|:--------------------:|
-| FFT | 66M – 184M | baseline | baseline | baseline |
-| LoRA | 38K – 3.3M | −99.7% | up to −70% | 15–30% |
-| AdaLoRA | 446K – 1.8M | −99.0% | moderate | 10–25% |
+| Method | Trainable Parameters | Reduction vs. FFT | Training Time | GPU Memory |
+|:-------|:--------------------:|:-----------------:|:-------------:|:----------:|
+| Fine-Tuned (FFT) | 66M – 184M | baseline | baseline | baseline |
+| **SentiMatrix** (LoRA) | 38K – 3.3M | **up to −99.7%** | **up to −70%** | **−15–30%** |
+| AdaLoRA | 446K – 1.8M | up to −99.0% | moderate | −10–25% |
 
 ---
 
