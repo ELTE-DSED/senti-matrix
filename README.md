@@ -94,9 +94,9 @@ Model selection follows architectural alignment with task-specific characteristi
 
 ## Key Results
 
-Tables report *Pretrained* (zero-shot), *Fine-Tuned* (FFT), ***SentiMatrix* (Ours / LoRA)**, and *AdaLoRA* (comparator). Best result per dataset in **bold**.
+*Pretrained = zero-shot | Fine-Tuned = full parameter update | LoRA = Low-Rank Adapter | AdaLoRA = Adaptive Low-Rank Adapter*
 
-*Pretrained = zero-shot | Fine-Tuned = full parameter update | SentiMatrix = LoRA adapter (proposed) | AdaLoRA = adaptive low-rank adapter*
+Best result per dataset in **bold**.
 
 ---
 
@@ -106,15 +106,15 @@ Tables report *Pretrained* (zero-shot), *Fine-Tuned* (FFT), ***SentiMatrix* (Our
 |:--------|:------|:--------:|:--------:|:----------:|:----------:|
 | SST-2 | Pretrained DistilBERT | **98.13%** | **98.20%** | — | — |
 | | Fine-Tuned DistilBERT | 89.09% | 89.51% | 66M | 2.0 GB |
-| | **SentiMatrix** DistilBERT | 89.40% | 89.84% | 758K | 1.0 GB |
+| | LoRA DistilBERT | 89.40% | 89.84% | 758K | 1.0 GB |
 | | AdaLoRA DistilBERT | 88.77% | 88.89% | 924K | 1.2 GB |
 | SST-2 | Pretrained RoBERTa | 97.51% | 97.60% | — | — |
 | | Fine-Tuned RoBERTa | 89.81% | 90.65% | 124M | 3.8 GB |
-| | **SentiMatrix** RoBERTa | **92.00%** | **92.21%** | 1.2M | 1.2 GB |
+| | LoRA RoBERTa | **92.00%** | **92.21%** | 1.2M | 1.2 GB |
 | | AdaLoRA RoBERTa | 92.72% | 92.90% | 1.8M | 1.2 GB |
 | IMDb | Pretrained BERT | **95.62%** | **95.53%** | — | — |
 | | Fine-Tuned BERT | 94.64% | 94.59% | 109M | 2.7 GB |
-| | **SentiMatrix** BERT | 92.58% | 92.52% | 38K | 1.8 GB |
+| | LoRA BERT | 92.58% | 92.52% | 38K | 1.8 GB |
 | | AdaLoRA BERT | 91.38% | 91.41% | 444K | 1.2 GB |
 
 ---
@@ -125,7 +125,7 @@ Tables report *Pretrained* (zero-shot), *Fine-Tuned* (FFT), ***SentiMatrix* (Our
 |:--------|:------|:--------:|:--------:|:----------:|:----------:|
 | Twitter | Pretrained RoBERTa | 64.96% | 62.88% | — | — |
 | | Fine-Tuned RoBERTa | 81.39% | 81.12% | 125M | 2.9 GB |
-| | **SentiMatrix** BERT *(State-of-the-Art)* | **85.13%** | **84.93%** | 3.3M | 2.3 GB |
+| | LoRA BERT | **85.13%** | **84.93%** | 3.3M | 2.3 GB |
 | | AdaLoRA RoBERTa | 75.58% | 75.41% | 1.0M | 1.1 GB |
 
 ---
@@ -136,14 +136,14 @@ Tables report *Pretrained* (zero-shot), *Fine-Tuned* (FFT), ***SentiMatrix* (Our
 |:--------|:------|:--------:|:--------:|:----------:|:----------:|
 | Combined (Laptop + Restaurant) | Pretrained DeBERTa | 75.84% | 71.84% | — | — |
 | | Fine-Tuned DeBERTa | 78.04% | 66.74% | 184M | 3.5 GB |
-| | **SentiMatrix** DeBERTa | **79.73%** | **73.75%** | 813K | 2.5 GB |
+| | LoRA DeBERTa | **79.73%** | **73.75%** | 813K | 2.5 GB |
 | | AdaLoRA DeBERTa | 76.35% | 66.72% | 1.2M | 1.7 GB |
 | Laptop | Pretrained DeBERTa | **81.90%** | **80.71%** | — | — |
 | | Fine-Tuned DeBERTa | 80.17% | 78.13% | 184M | 4.2 GB |
-| | **SentiMatrix** DeBERTa | 78.02% | 69.84% | 813K | 2.5 GB |
+| | LoRA DeBERTa | 78.02% | 69.84% | 813K | 2.5 GB |
 | Restaurant | Pretrained DeBERTa | 73.41% | 68.35% | — | — |
 | | Fine-Tuned DeBERTa | 80.06% | 71.14% | 184M | 4.2 GB |
-| | **SentiMatrix** DeBERTa | **79.02%** | **68.28%** | 813K | 2.4 GB |
+| | LoRA DeBERTa | **79.02%** | **68.28%** | 813K | 2.4 GB |
 
 > AdaLoRA results reported on the combined Laptop + Restaurant domain only.
 
@@ -155,19 +155,19 @@ Tables report *Pretrained* (zero-shot), *Fine-Tuned* (FFT), ***SentiMatrix* (Our
 |:--------|:------|:--------:|:--------:|:----------:|:----------:|
 | E-Commerce (5-Class) | Pretrained BERT | 56.87% | 47.82% | — | — |
 | | Fine-Tuned BERT | 66.27% | 50.44% | 167M | 3.2 GB |
-| | **SentiMatrix** BERT | **67.73%** | **50.31%** | 298K | 1.6 GB |
+| | LoRA BERT | **67.73%** | **50.31%** | 298K | 1.6 GB |
 | | AdaLoRA mBERT | 65.30% | 42.01% | 446K | 1.4 GB |
 | E-Commerce (3-Class) | Pretrained RoBERTa | 79.12% | 53.51% | — | — |
 | | Fine-Tuned RoBERTa | 83.50% | 66.89% | 124M | 2.9 GB |
-| | **SentiMatrix** RoBERTa | **84.96%** | **66.47%** | 889K | 1.7 GB |
+| | LoRA RoBERTa | **84.96%** | **66.47%** | 889K | 1.7 GB |
 | | AdaLoRA RoBERTa | 84.87% | 66.53% | 1.3M | 3.3 GB |
 | Yelp (5-Class) | Pretrained BERT | 55.85% | 55.46% | — | — |
 | | Fine-Tuned BERT | 61.13% | 60.44% | 16.7M | 3.7 GB |
-| | **SentiMatrix** BERT *(State-of-the-Art)* | **64.58%** | **64.09%** | 1.3M | 3.5 GB |
+| | LoRA BERT | **64.58%** | **64.09%** | 1.3M | 3.5 GB |
 | | AdaLoRA mBERT | 47.53% | 47.75% | 446K | 1.4 GB |
 | Yelp (3-Class) | Pretrained RoBERTa | 68.93% | 58.05% | — | — |
 | | Fine-Tuned RoBERTa | 82.01% | 77.54% | 124M | 4.2 GB |
-| | **SentiMatrix** RoBERTa | **83.87%** | **79.23%** | 740K | 4.9 GB |
+| | LoRA RoBERTa | **83.87%** | **79.23%** | 740K | 4.9 GB |
 | | AdaLoRA RoBERTa | 71.66% | 68.48% | 1.3M | 3.3 GB |
 
 > Collapsing 5-class to 3-class labels yields ~17% accuracy improvement at no additional computational cost.
@@ -180,18 +180,27 @@ Tables report *Pretrained* (zero-shot), *Fine-Tuned* (FFT), ***SentiMatrix* (Our
 |:--------|:------|:--------:|:--------:|:----------:|:----------:|
 | CARER Emotion | Pretrained DistilBERT | 93.15% | 89.87% | — | — |
 | | Fine-Tuned DistilBERT | **93.59%** | **90.72%** | 66.9M | 2.4 GB |
-| | **SentiMatrix** DistilBERT *(near-SotA)* | 93.40% | 90.61% | 668K | 2.1 GB |
+| | LoRA DistilBERT | 93.40% | 90.61% | 668K | 2.1 GB |
 | | AdaLoRA DistilBERT | 93.36% | 93.46% | 927K | 0.5 GB |
 
 ---
 
-### Efficiency Summary
+### SentiMatrix — Proposed Model Summary and State-of-the-Art Comparison
 
-| Method | Trainable Parameters | Reduction vs. FFT | Training Time | GPU Memory |
-|:-------|:--------------------:|:-----------------:|:-------------:|:----------:|
-| Fine-Tuned (FFT) | 66M – 184M | baseline | baseline | baseline |
-| **SentiMatrix** (LoRA) | 38K – 3.3M | **up to −99.7%** | **up to −70%** | **−15–30%** |
-| AdaLoRA | 446K – 1.8M | up to −99.0% | moderate | −10–25% |
+**SentiMatrix** is the proposed LoRA-based framework evaluated in this study. The table below reports SentiMatrix results alongside efficiency gains relative to full fine-tuning across all benchmarks.
+
+| Benchmark | Task | SentiMatrix Model | Accuracy | F1-Score | Params | Param Reduction | SotA? |
+|:----------|:-----|:------------------|:--------:|:--------:|:------:|:---------------:|:-----:|
+| SST-2 | Intent (2-class) | LoRA DistilBERT | 89.40% | 89.84% | 758K | −98.9% | — |
+| SST-2 | Intent (2-class) | LoRA RoBERTa | 92.00% | 92.21% | 1.2M | −99.0% | — |
+| IMDb | Intent (2-class) | LoRA BERT | 92.58% | 92.52% | 38K | −99.9% | — |
+| Twitter | Intent (3-class) | LoRA BERT | **85.13%** | **84.93%** | 3.3M | −97.4% | ✓ New SotA |
+| ABSA Combined | Aspect (3-class) | LoRA DeBERTa | 79.73% | 73.75% | 813K | −99.6% | — |
+| E-Commerce | Fine-Grained (5-class) | LoRA BERT | 67.73% | 50.31% | 298K | −99.8% | — |
+| Yelp | Fine-Grained (5-class) | LoRA BERT | **64.58%** | **64.09%** | 1.3M | −92.2% | ✓ New SotA |
+| CARER | Emotion (6-class) | LoRA DistilBERT | 93.40% | 90.61% | 668K | −99.0% | ≈ SotA |
+
+*SentiMatrix reduces trainable parameters by up to 99.7%, training time by up to 70%, and peak GPU memory by 15–30% relative to full fine-tuning, while matching or surpassing FFT on 5 out of 7 benchmarks.*
 
 ---
 
