@@ -6,8 +6,6 @@
 
 *Python · PyTorch · Transformers · HuggingFace · LoRA · AdaLoRA*
 
-> **This work is currently under review at the** ***Machine Learning*** **journal (Springer).**
-
 **Keywords:** Sentiment Analysis · Transformer Models · Parameter-Efficient Fine-Tuning · Low-Rank Adaptation · Multidimensional Evaluation
 
 ---
@@ -418,15 +416,14 @@ If you use SentiMatrix in your research, please cite:
 
 ```bibtex
 @article{arafat2026sentimatrix,
-  title     = {SentiMatrix: Parameter-Efficient Fine-Tuning of Encoder-Based Transformers for Multidimensional Sentiment Analysis},
-  author    = {Arafat, Md. Easin and
-               Akmal, Muhammad Usman and
-               Abosinnee, Ali S. and
-               Orosz, Tam{\'a}s},
-  journal   = {Machine Learning},
-  publisher = {Springer},
-  year      = {2026},
-  note      = {Under review}
+  title={SentiMatrix: Parameter-Efficient Fine-Tuning of Encoder-Based Transformers for Multidimensional Sentiment Analysis},
+  author={Arafat, Md Easin and Akmal, Muhammad Usman and Abosinnee, Ali S and Orosz, Tam{\'a}s},
+  journal={Machine Learning},
+  volume={115},
+  number={10},
+  pages={229},
+  year={2026},
+  publisher={Springer}
 }
 ```
 
